@@ -4,6 +4,6 @@
     {
         public string? Query { get; set; }
 
-        public SteamPaySuggestion[]? Suggestions { get; set; }
+        public SteamPaySuggestion[] Suggestions { get; set; } = Array.Empty<SteamPaySuggestion>();
     }
 }
