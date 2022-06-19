@@ -6,11 +6,9 @@ namespace Riwexoyd.ExternalSearch.Games.Services
     {
         public static readonly HttpClient HttpClient = new HttpClient();
 
-        protected abstract string SearchUri { get; }
-
         public override async Task<IEnumerable<GameSearchResult>> SearchAsync(GameSearchOptions options, CancellationToken cancellationToken)
         {
-            var uri = string.Format(SearchUri, Uri.EscapeDataString(options.GameTitle));
+            string uri = GetSearchUri(options);
             HttpRequestMessage request = new(HttpMethod.Get, uri);
             request.Headers.Add("x-requested-with", "XMLHttpRequest");
             using HttpResponseMessage? httpResponse = await HttpClient.SendAsync(request, cancellationToken);

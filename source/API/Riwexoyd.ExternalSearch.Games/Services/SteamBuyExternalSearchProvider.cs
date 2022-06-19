@@ -18,7 +18,7 @@ namespace Riwexoyd.ExternalSearch.Games.Services
 
         public override Uri BaseLinkUri { get; } = new Uri("https://steambuy.com/");
 
-        protected override string SearchUri { get; } = "https://steambuy.com/ajax/_get.php?a=search&q={0}";
+        public override string SearchUri { get; } = "https://steambuy.com/ajax/_get.php?a=search&q={0}";
 
         protected override async Task<IEnumerable<GameSearchResult>> GetDataFromStream(Stream stream, CancellationToken cancellationToken)
         {

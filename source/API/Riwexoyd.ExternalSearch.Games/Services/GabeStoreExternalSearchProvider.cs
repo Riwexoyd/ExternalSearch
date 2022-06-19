@@ -10,7 +10,7 @@ namespace Riwexoyd.ExternalSearch.Games.Services
 {
     internal sealed class GabeStoreExternalSearchProvider : GameExternalSearchProvider
     {
-        private const string SearchUri = "https://gabestore.ru/result?ProductFilter%5Bsearch%5D={0}";
+        public override string SearchUri { get; } = "https://gabestore.ru/result?ProductFilter%5Bsearch%5D={0}";
 
         public override Guid Uid { get; } = new Guid("{DF36F4AB-BFEC-4789-94AC-5CC20F3133BC}");
 
@@ -20,13 +20,13 @@ namespace Riwexoyd.ExternalSearch.Games.Services
 
         public override async Task<IEnumerable<GameSearchResult>> SearchAsync(GameSearchOptions options, CancellationToken cancellationToken)
         {
-            string address = string.Format(SearchUri, Uri.EscapeDataString(options.GameTitle));
+            string address = GetSearchUri(options);
             var config = Configuration.Default.WithDefaultLoader();
             IBrowsingContext browsingContext = BrowsingContext.New(config);
             IDocument document = await browsingContext.OpenAsync(address, cancellationToken);
 
             IHtmlCollection<IElement> shopItems = document.QuerySelectorAll("div.shop-item");
-            List<GameSearchResult> gameSearchResults = new List<GameSearchResult>(shopItems.Length);
+            List<GameSearchResult> gameSearchResults = new(shopItems.Length);
 
             foreach (IElement shopItem in shopItems)
             {

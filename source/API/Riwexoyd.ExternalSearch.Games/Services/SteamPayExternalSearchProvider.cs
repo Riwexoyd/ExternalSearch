@@ -13,7 +13,7 @@ namespace Riwexoyd.ExternalSearch.Games.Services
 
         public override Uri BaseLinkUri { get; } = new("https://steampay.com/game/");
 
-        protected override string SearchUri { get; } = "https://steampay.com/ajax/autocomplete/search?query={0}";
+        public override string SearchUri { get; } = "https://steampay.com/ajax/autocomplete/search?query={0}";
 
         protected override async Task<IEnumerable<GameSearchResult>> GetDataFromStream(Stream stream, CancellationToken cancellationToken)
         {
