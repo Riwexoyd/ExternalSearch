@@ -2,8 +2,10 @@
 
 namespace Riwexoyd.ExternalSearch.Games.Services
 {
-    internal abstract class GetGameExternalSearchProvider : GameExternalSearchProvider
+    internal abstract class HttpGameExternalSearchProvider : GameExternalSearchProvider
     {
+        public static readonly HttpClient HttpClient = new HttpClient();
+
         protected abstract string SearchUri { get; }
 
         public override async Task<IEnumerable<GameSearchResult>> SearchAsync(GameSearchOptions options, CancellationToken cancellationToken)

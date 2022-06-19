@@ -5,7 +5,7 @@ using System.Text.Json;
 
 namespace Riwexoyd.ExternalSearch.Games.Services
 {
-    internal sealed class ZakaExternalSearchProvider : GetGameExternalSearchProvider
+    internal sealed class ZakaExternalSearchProvider : HttpGameExternalSearchProvider
     {
         public override Guid Uid { get; } = new Guid("{81DDECCD-9E81-4C64-B0EA-F6C20D803563}");
 

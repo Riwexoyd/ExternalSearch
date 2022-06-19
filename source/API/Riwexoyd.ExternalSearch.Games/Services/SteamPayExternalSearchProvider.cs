@@ -5,7 +5,7 @@ using System.Text.Json;
 
 namespace Riwexoyd.ExternalSearch.Games.Services
 {
-    internal sealed class SteamPayExternalSearchProvider : GetGameExternalSearchProvider
+    internal sealed class SteamPayExternalSearchProvider : HttpGameExternalSearchProvider
     {
         public override Guid Uid { get; } = new Guid("{3BA27E1B-E93A-4C5E-B1B6-DDC84B4FA156}");
 

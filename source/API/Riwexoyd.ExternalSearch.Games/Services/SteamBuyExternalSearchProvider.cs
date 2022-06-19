@@ -10,7 +10,7 @@ using System.Text.RegularExpressions;
 
 namespace Riwexoyd.ExternalSearch.Games.Services
 {
-    internal sealed class SteamBuyExternalSearchProvider : GetGameExternalSearchProvider
+    internal sealed class SteamBuyExternalSearchProvider : HttpGameExternalSearchProvider
     {
         public override Guid Uid { get; } = new Guid("{7EA92CB7-4C1D-4DDF-A36D-51E09139FACE}");
 
