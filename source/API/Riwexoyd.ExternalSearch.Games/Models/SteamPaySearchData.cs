@@ -8,7 +8,7 @@ namespace Riwexoyd.ExternalSearch.Games.Models
     {
         public string? Link { get; set; }
 
-        [JsonConverter(typeof(NullableIntConverter))]
+        [JsonConverter(typeof(NullableIntParseConverter))]
         public int? Price { get; set; }
 
         public string? Value { get; set; }

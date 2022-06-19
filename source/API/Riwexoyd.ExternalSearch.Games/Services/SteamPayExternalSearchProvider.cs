@@ -7,11 +7,11 @@ namespace Riwexoyd.ExternalSearch.Games.Services
 {
     internal sealed class SteamPayExternalSearchProvider : GetGameExternalSearchProvider
     {
-        private static readonly Uri GameUri = new("https://steampay.com/game/");
-
         public override Guid Uid { get; } = new Guid("{3BA27E1B-E93A-4C5E-B1B6-DDC84B4FA156}");
 
         public override string Name { get; } = "SteamPay (https://steampay.com/)";
+
+        public override Uri BaseLinkUri { get; } = new("https://steampay.com/game/");
 
         protected override string SearchUri { get; } = "https://steampay.com/ajax/autocomplete/search?query={0}";
 
@@ -32,7 +32,7 @@ namespace Riwexoyd.ExternalSearch.Games.Services
         {
             return new GameSearchResult
             {
-                Url = new Uri(GameUri, game.Data.Link).AbsoluteUri,
+                Url = GetGameLink(game.Data.Link),
                 Price = game.Data.Price,
                 GameTitle = game.Data.Value,
                 ProviderUid = Uid

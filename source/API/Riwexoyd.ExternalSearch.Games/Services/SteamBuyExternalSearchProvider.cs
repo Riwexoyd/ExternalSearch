@@ -2,6 +2,7 @@
 using AngleSharp.Dom;
 
 using Riwexoyd.ExternalSearch.Games.Contracts;
+using Riwexoyd.ExternalSearch.Games.Converters;
 using Riwexoyd.ExternalSearch.Games.Models;
 
 using System.Text.Json;
@@ -11,20 +12,13 @@ namespace Riwexoyd.ExternalSearch.Games.Services
 {
     internal sealed class SteamBuyExternalSearchProvider : GetGameExternalSearchProvider
     {
-        private static readonly Uri GameUri = new Uri("https://steambuy.com/");
-        private static readonly Regex DigitalRegex = new(@"\d+");
-        private readonly IBrowsingContext _browsingContext;
-
         public override Guid Uid { get; } = new Guid("{7EA92CB7-4C1D-4DDF-A36D-51E09139FACE}");
 
         public override string Name { get; } = "SteamBuy (https://steambuy.com/)";
 
-        protected override string SearchUri { get; } = "https://steambuy.com/ajax/_get.php?a=search&q={0}";
+        public override Uri BaseLinkUri { get; } = new Uri("https://steambuy.com/");
 
-        public SteamBuyExternalSearchProvider()
-        {
-            _browsingContext = BrowsingContext.New();
-        }
+        protected override string SearchUri { get; } = "https://steambuy.com/ajax/_get.php?a=search&q={0}";
 
         protected override async Task<IEnumerable<GameSearchResult>> GetDataFromStream(Stream stream, CancellationToken cancellationToken)
         {
@@ -36,7 +30,8 @@ namespace Riwexoyd.ExternalSearch.Games.Services
             if (data == null || data.All == 0)
                 return Enumerable.Empty<GameSearchResult>();
 
-            IDocument document = await _browsingContext.OpenAsync(req => req.Content(data.Html), cancellationToken);
+            using IBrowsingContext browsingContext = BrowsingContext.New();
+            IDocument document = await browsingContext.OpenAsync(req => req.Content(data.Html), cancellationToken);
             IHtmlCollection<IElement> items = document.QuerySelectorAll("div.search-result__item");
 
             List<GameSearchResult> results = new List<GameSearchResult>(items.Length);
@@ -51,7 +46,7 @@ namespace Riwexoyd.ExternalSearch.Games.Services
                 if (string.IsNullOrEmpty(link))
                     continue;
 
-                Match costMatch = DigitalRegex.Match(costElement.TextContent);
+                Match costMatch = NullableIntParseConverter.DigitalRegex.Match(costElement.TextContent);
                 int? price = null;
 
                 if (costMatch.Success && int.TryParse(costMatch.Value, out int tempPrice))
@@ -62,7 +57,7 @@ namespace Riwexoyd.ExternalSearch.Games.Services
                     Price = price,
                     ProviderUid = Uid,
                     GameTitle = titleElemement.TextContent,
-                    Url = new Uri(GameUri, link).AbsoluteUri
+                    Url = GetGameLink(link)
                 };
 
                 results.Add(result);

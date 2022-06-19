@@ -11,6 +11,13 @@ namespace Riwexoyd.ExternalSearch.Games.Services
 
         public abstract string Name { get; }
 
+        public abstract Uri BaseLinkUri { get; }
+
         public abstract Task<IEnumerable<GameSearchResult>> SearchAsync(GameSearchOptions options, CancellationToken cancellationToken);
+
+        public string GetGameLink(string? relativeUri)
+        {
+            return new Uri(BaseLinkUri, relativeUri).AbsoluteUri;
+        }
     }
 }

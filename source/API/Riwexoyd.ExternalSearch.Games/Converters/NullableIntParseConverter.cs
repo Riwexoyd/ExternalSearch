@@ -4,9 +4,9 @@ using System.Text.RegularExpressions;
 
 namespace Riwexoyd.ExternalSearch.Games.Converters
 {
-    internal sealed class NullableIntConverter : JsonConverter<int?>
+    internal sealed class NullableIntParseConverter : JsonConverter<int?>
     {
-        private static readonly Regex DigitalRegex = new(@"\d+");
+        public static readonly Regex DigitalRegex = new(@"\d+");
 
         public override int? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {

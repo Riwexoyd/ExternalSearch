@@ -7,11 +7,11 @@ namespace Riwexoyd.ExternalSearch.Games.Services
 {
     internal sealed class ZakaExternalSearchProvider : GetGameExternalSearchProvider
     {
-        private static readonly Uri GameUri = new Uri("https://zaka-zaka.com/game/");
-
         public override Guid Uid { get; } = new Guid("{81DDECCD-9E81-4C64-B0EA-F6C20D803563}");
 
         public override string Name { get; } = "Zaka-Zaka (https://zaka-zaka.com/)";
+
+        public override Uri BaseLinkUri { get; } = new Uri("https://zaka-zaka.com/game/");
 
         protected override string SearchUri { get; } = "https://zaka-zaka.com/search/ajax/?game={0}";
 
@@ -35,7 +35,7 @@ namespace Riwexoyd.ExternalSearch.Games.Services
                 Price = game.Price,
                 ProviderUid = Uid,
                 GameTitle = game.Name,
-                Url = new Uri(GameUri, game.Url).AbsoluteUri
+                Url = GetGameLink(game.Url)
             };
         }
     }
