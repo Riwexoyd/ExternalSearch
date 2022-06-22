@@ -1,5 +1,4 @@
-﻿using AngleSharp;
-using AngleSharp.Dom;
+﻿using AngleSharp.Dom;
 
 using Riwexoyd.ExternalSearch.Games.Contracts;
 using Riwexoyd.ExternalSearch.Games.Converters;
@@ -8,7 +7,7 @@ using System.Text.RegularExpressions;
 
 namespace Riwexoyd.ExternalSearch.Games.Services
 {
-    internal sealed class GabeStoreExternalSearchProvider : GameExternalSearchProvider
+    internal sealed class GabeStoreExternalSearchProvider : ParseExternalSearchProvider
     {
         public override string SearchUri { get; } = "https://gabestore.ru/result?ProductFilter%5Bsearch%5D={0}";
 
@@ -18,13 +17,8 @@ namespace Riwexoyd.ExternalSearch.Games.Services
 
         public override Uri BaseLinkUri { get; } = new Uri("https://gabestore.ru/");
 
-        public override async Task<IEnumerable<GameSearchResult>> SearchAsync(GameSearchOptions options, CancellationToken cancellationToken)
+        protected override IEnumerable<GameSearchResult> ParseDocument(IDocument document)
         {
-            string address = GetSearchUri(options);
-            var config = Configuration.Default.WithDefaultLoader();
-            IBrowsingContext browsingContext = BrowsingContext.New(config);
-            IDocument document = await browsingContext.OpenAsync(address, cancellationToken);
-
             IHtmlCollection<IElement> shopItems = document.QuerySelectorAll("div.shop-item");
             List<GameSearchResult> gameSearchResults = new(shopItems.Length);
 
