@@ -7,11 +7,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "API", "API", "{D66C1BE8-337
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Riwexoyd.ExternalSearch.Core", "API\Riwexoyd.ExternalSearch.Core\Riwexoyd.ExternalSearch.Core.csproj", "{694724CE-7716-454A-B000-3825B39C65A1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Riwexoyd.ExternalSearch.Games", "API\Riwexoyd.ExternalSearch.Games\Riwexoyd.ExternalSearch.Games.csproj", "{8349724D-BE36-44A9-8BD2-A03441215C8A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Riwexoyd.ExternalSearch.Games", "API\Riwexoyd.ExternalSearch.Games\Riwexoyd.ExternalSearch.Games.csproj", "{8349724D-BE36-44A9-8BD2-A03441215C8A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{0B0D51A5-C696-4D06-924C-501DD4ECF794}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Riwexoyd.ExternalSearch.Games.Tests", "Tests\Riwexoyd.ExternalSearch.Games.Tests\Riwexoyd.ExternalSearch.Games.Tests.csproj", "{6496D339-7512-4059-8125-E478437501ED}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Riwexoyd.ExternalSearch.Games.Tests", "Tests\Riwexoyd.ExternalSearch.Games.Tests\Riwexoyd.ExternalSearch.Games.Tests.csproj", "{6496D339-7512-4059-8125-E478437501ED}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Riwexoyd.ExternalSearch.WebApp", "API\Riwexoyd.ExternalSearch.WebApp\Riwexoyd.ExternalSearch.WebApp.csproj", "{808CBF66-4186-42AA-A680-09B81D7C2A39}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Riwexoyd.ExternalSearch.Services", "API\Riwexoyd.ExternalSearch.Services\Riwexoyd.ExternalSearch.Services.csproj", "{557636AC-FAC1-4B57-9998-C9BFD14F4F78}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Riwexoyd.ExternalSearch.Presentation", "API\Riwexoyd.ExternalSearch.Presentation\Riwexoyd.ExternalSearch.Presentation.csproj", "{EF39987C-2B56-4B4C-A22E-DAD50EB2DEF1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,6 +37,18 @@ Global
 		{6496D339-7512-4059-8125-E478437501ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6496D339-7512-4059-8125-E478437501ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6496D339-7512-4059-8125-E478437501ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{808CBF66-4186-42AA-A680-09B81D7C2A39}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{808CBF66-4186-42AA-A680-09B81D7C2A39}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{808CBF66-4186-42AA-A680-09B81D7C2A39}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{808CBF66-4186-42AA-A680-09B81D7C2A39}.Release|Any CPU.Build.0 = Release|Any CPU
+		{557636AC-FAC1-4B57-9998-C9BFD14F4F78}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{557636AC-FAC1-4B57-9998-C9BFD14F4F78}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{557636AC-FAC1-4B57-9998-C9BFD14F4F78}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{557636AC-FAC1-4B57-9998-C9BFD14F4F78}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EF39987C-2B56-4B4C-A22E-DAD50EB2DEF1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF39987C-2B56-4B4C-A22E-DAD50EB2DEF1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF39987C-2B56-4B4C-A22E-DAD50EB2DEF1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EF39987C-2B56-4B4C-A22E-DAD50EB2DEF1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -39,6 +57,9 @@ Global
 		{694724CE-7716-454A-B000-3825B39C65A1} = {D66C1BE8-3374-433D-9A63-E08F62B6C9C6}
 		{8349724D-BE36-44A9-8BD2-A03441215C8A} = {D66C1BE8-3374-433D-9A63-E08F62B6C9C6}
 		{6496D339-7512-4059-8125-E478437501ED} = {0B0D51A5-C696-4D06-924C-501DD4ECF794}
+		{808CBF66-4186-42AA-A680-09B81D7C2A39} = {D66C1BE8-3374-433D-9A63-E08F62B6C9C6}
+		{557636AC-FAC1-4B57-9998-C9BFD14F4F78} = {D66C1BE8-3374-433D-9A63-E08F62B6C9C6}
+		{EF39987C-2B56-4B4C-A22E-DAD50EB2DEF1} = {D66C1BE8-3374-433D-9A63-E08F62B6C9C6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {88981E5B-BF93-44AF-A219-D269504B66F2}
