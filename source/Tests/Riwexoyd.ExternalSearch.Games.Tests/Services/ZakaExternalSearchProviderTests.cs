@@ -19,7 +19,7 @@ namespace Riwexoyd.ExternalSearch.Games.Tests.Services
             // Act
             IEnumerable<GameSearchResult>? games = await zakaExternalSearchProvider.SearchAsync(new GameSearchOptions
             {
-                GameTitle = "God of war"
+                GameTitle = "Death"
             }, System.Threading.CancellationToken.None);
 
             // Assert

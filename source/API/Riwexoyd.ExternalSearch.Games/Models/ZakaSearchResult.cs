@@ -12,5 +12,7 @@ namespace Riwexoyd.ExternalSearch.Games.Models
         public int? Price { get; set; }
 
         public string? Url { get; set; }
+
+        public string Type { get; set; } = string.Empty;
     }
 }

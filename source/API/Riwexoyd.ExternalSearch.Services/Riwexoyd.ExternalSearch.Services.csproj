@@ -18,6 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Riwexoyd.ExternalSearch.Core.DependencyInjection\Riwexoyd.ExternalSearch.Core.DependencyInjection.csproj" />
     <ProjectReference Include="..\Riwexoyd.ExternalSearch.Games\Riwexoyd.ExternalSearch.Games.csproj" />
   </ItemGroup>
 

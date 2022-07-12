@@ -25,7 +25,7 @@ namespace Riwexoyd.ExternalSearch.Games.Services
             if (data == null)
                 return Enumerable.Empty<GameSearchResult>();
 
-            return data.Where(i => !string.IsNullOrEmpty(i.Url)).Select(Map);
+            return data.Where(i => !string.IsNullOrEmpty(i.Url) && i.Type.ToUpper() == "GAME").Select(Map);
         }
 
         private GameSearchResult Map(ZakaSearchResult game)

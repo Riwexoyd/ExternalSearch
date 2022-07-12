@@ -16,16 +16,27 @@ namespace Riwexoyd.ExternalSearch.Core.Services
         public async Task<IEnumerable<TSearchResult>> SearchAsync(TSearchOptions searchOptions, CancellationToken cancellationToken)
         {
             ICollection<IExternalSearchProvider<TSearchOptions, TSearchResult>> searchProviders = FilterProviders(searchOptions);
-            List<Task<IEnumerable<TSearchResult>>> searchTasks = new List<Task<IEnumerable<TSearchResult>>>(searchProviders.Count);
+            List<Task<IEnumerable<TSearchResult>>> searchTasksCollection = new List<Task<IEnumerable<TSearchResult>>>(searchProviders.Count);
 
             foreach (var provider in searchProviders)
             {
-                searchTasks.Add(provider.SearchAsync(searchOptions, cancellationToken));
+                searchTasksCollection.Add(provider.SearchAsync(searchOptions, cancellationToken));
             }
 
-            IEnumerable<TSearchResult>[]? result = await Task.WhenAll(searchTasks);
+            var searchTasks = Task.WhenAll(searchTasksCollection);
 
-            return result.SelectMany(i => i);
+            try
+            {
+                IEnumerable<TSearchResult>[]? result = await searchTasks;
+                return result.SelectMany(i => i);
+            }
+            catch
+            {
+                if (searchTasks.Exception is null)
+                    throw;
+
+                throw new AggregateException("Произошли ошибки при поиске игр", searchTasks.Exception.InnerExceptions);
+            }
         }
 
         private ICollection<IExternalSearchProvider<TSearchOptions, TSearchResult>> FilterProviders(TSearchOptions searchOptions)

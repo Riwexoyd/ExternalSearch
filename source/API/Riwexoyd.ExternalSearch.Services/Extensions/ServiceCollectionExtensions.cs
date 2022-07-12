@@ -1,12 +1,11 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-using Riwexoyd.ExternalSearch.Core.Contracts;
+using Riwexoyd.ExternalSearch.Core.DependencyInjection;
+using Riwexoyd.ExternalSearch.Games.Contracts;
 using Riwexoyd.ExternalSearch.Services.Configurations;
 using Riwexoyd.ExternalSearch.Services.Contracts;
 using Riwexoyd.ExternalSearch.Services.Implementations;
-
-using System.Reflection;
 
 using Telegram.Bot;
 
@@ -27,6 +26,8 @@ namespace Riwexoyd.ExternalSearch.Services.Extensions
             services.AddHostedService<TelegramBotHostService>();
 
             services.AddTransient<ITelegramBotUpdateHandler, TelegramBotUpdateHandler>();
+
+            services.AddExternalSearch<GameSearchOptions, GameSearchResult>();
 
             // Регистрируем команды бота
             var botCommandType = typeof(IBotCommandHandler);
@@ -49,7 +50,7 @@ namespace Riwexoyd.ExternalSearch.Services.Extensions
 
         private static IEnumerable<Type> GetImplimentationTypes(Type type)
         {
-            return Assembly.GetAssembly(type)
+            return type.Assembly
                 .GetTypes()
                 .Where(i => type.IsAssignableFrom(i) && i != type && !i.IsAbstract && !i.IsInterface)
                 .ToList();
