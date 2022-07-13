@@ -9,6 +9,8 @@ namespace Riwexoyd.ExternalSearch.Games.Services
 {
     internal sealed class InteresExternalSearchProvider : ParseExternalSearchProvider
     {
+        private static readonly string[] Consoles = { "[XBOX]", "[PS4]", "[PS5]" };
+
         public override string SearchUri { get; } = "https://www.1c-interes.ru/search/?q={0}&ib=114&genre=3353622";
 
         public override Guid Uid { get; } = new Guid("{B340BCB9-60CC-4553-B7C4-DAD6213431AE}");
@@ -27,6 +29,13 @@ namespace Riwexoyd.ExternalSearch.Games.Services
                 IElement titleElement = shopItem.QuerySelector("div.catalog_item__name a")!;
                 IElement priceElement = shopItem.QuerySelector("div.catalog_item__price a ins strong")!;
 
+                string gameTitle = titleElement.TextContent.Trim();
+
+                string? upperTitle = gameTitle.ToUpper();
+
+                if (Consoles.Any(console => upperTitle.Contains(console)))
+                    continue;
+
                 string? link = titleElement.GetAttribute("href");
 
                 if (string.IsNullOrEmpty(link))
@@ -42,7 +51,7 @@ namespace Riwexoyd.ExternalSearch.Games.Services
 
                 gameSearchResults.Add(new GameSearchResult
                 {
-                    GameTitle = titleElement.TextContent.Trim(),
+                    GameTitle = gameTitle,
                     Price = price,
                     ProviderUid = Uid,
                     Url = GetGameLink(link)

@@ -55,18 +55,24 @@ namespace Riwexoyd.ExternalSearch.Services.Implementations
                 .ThenBy(result => result.Price);
 
             int page = 1;
+            int item = 1;
             while (enumerable.Any())
             {
                 StringBuilder resultMessageBuilder = new StringBuilder();
-                resultMessageBuilder.AppendLine($"Результаты поиска {page}:");
+                resultMessageBuilder.AppendLine($"Результаты поиска [стр. {page}]:");
+                resultMessageBuilder.AppendLine();
                 page++;
                 foreach (var result in enumerable.Take(15))
                 {
-                    resultMessageBuilder.Append($"{result.GameTitle}");
+                    resultMessageBuilder.Append($"{item}. {result.GameTitle}");
                     if (result.Price.HasValue)
                         resultMessageBuilder.Append($" [{result.Price}]");
-                    resultMessageBuilder.Append($" - {result.Url}");
+
                     resultMessageBuilder.AppendLine();
+                    resultMessageBuilder.Append(result.Url);
+                    resultMessageBuilder.AppendLine();
+                    resultMessageBuilder.AppendLine();
+                    item++;
                 }
 
                 enumerable = enumerable.Skip(15);
