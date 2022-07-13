@@ -51,15 +51,16 @@ namespace Riwexoyd.ExternalSearch.Services.Implementations
                 return;
             }
 
-            IEnumerable<GameSearchResult> enumerable = searchResult.OrderBy(result => result.GameTitle)
-                .ThenBy(result => result.Price);
+            IEnumerable<GameSearchResult> enumerable = searchResult.OrderBy(result => result.Price)
+                .ThenBy(result => result.GameTitle);
+            // TODO сначала по совпадению в названии
 
             int page = 1;
             int item = 1;
             while (enumerable.Any())
             {
                 StringBuilder resultMessageBuilder = new StringBuilder();
-                resultMessageBuilder.AppendLine($"Результаты поиска [стр. {page}]:");
+                resultMessageBuilder.AppendLine($"Результаты поиска \"{message}\" [стр. {page}]:");
                 resultMessageBuilder.AppendLine();
                 page++;
                 foreach (var result in enumerable.Take(15))
