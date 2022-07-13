@@ -51,12 +51,16 @@ namespace Riwexoyd.ExternalSearch.Services.Implementations
                 return;
             }
 
-            IEnumerable<GameSearchResult> enumerable = searchResult.OrderBy(result => result.Price)
-                .ThenBy(result => result.GameTitle);
-            // TODO сначала по совпадению в названии
+            var clearedMessage = RemoveSpecialCharacters(message);
+
+            IEnumerable<GameSearchResult> enumerable = searchResult
+                .OrderByDescending(result => RemoveSpecialCharacters(result.GameTitle).StartsWith(clearedMessage, StringComparison.OrdinalIgnoreCase))
+                .ThenBy(result => result.Price)
+                .ThenBy(result => result.GameTitle, StringComparer.OrdinalIgnoreCase);
 
             int page = 1;
             int item = 1;
+
             while (enumerable.Any())
             {
                 StringBuilder resultMessageBuilder = new StringBuilder();
@@ -82,6 +86,11 @@ namespace Riwexoyd.ExternalSearch.Services.Implementations
             }
 
             _logger.LogDebug("ExternalSearchMessageHandler handle finished");
+        }
+
+        private static string RemoveSpecialCharacters(string input)
+        {
+            return new string(input.Where(character => char.IsLetterOrDigit(character)).ToArray());
         }
     }
 }
