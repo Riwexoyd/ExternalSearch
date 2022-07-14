@@ -55,6 +55,7 @@ namespace Riwexoyd.ExternalSearch.Services.Implementations
 
             IEnumerable<GameSearchResult> enumerable = searchResult
                 .OrderByDescending(result => RemoveSpecialCharacters(result.GameTitle).Contains(clearedMessage, StringComparison.OrdinalIgnoreCase))
+                .ThenByDescending(result => result.Price.HasValue)
                 .ThenBy(result => result.Price)
                 .ThenBy(result => result.GameTitle, StringComparer.OrdinalIgnoreCase);
 
@@ -72,6 +73,8 @@ namespace Riwexoyd.ExternalSearch.Services.Implementations
                     resultMessageBuilder.Append($"{item}. {result.GameTitle}");
                     if (result.Price.HasValue)
                         resultMessageBuilder.Append($" [{result.Price}]");
+                    else
+                        resultMessageBuilder.Append(" [Цена отсутствует]");
 
                     resultMessageBuilder.AppendLine();
                     resultMessageBuilder.Append(result.Url);
