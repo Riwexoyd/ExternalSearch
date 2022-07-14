@@ -54,7 +54,7 @@ namespace Riwexoyd.ExternalSearch.Services.Implementations
             var clearedMessage = RemoveSpecialCharacters(message);
 
             IEnumerable<GameSearchResult> enumerable = searchResult
-                .OrderByDescending(result => RemoveSpecialCharacters(result.GameTitle).StartsWith(clearedMessage, StringComparison.OrdinalIgnoreCase))
+                .OrderByDescending(result => RemoveSpecialCharacters(result.GameTitle).Contains(clearedMessage, StringComparison.OrdinalIgnoreCase))
                 .ThenBy(result => result.Price)
                 .ThenBy(result => result.GameTitle, StringComparer.OrdinalIgnoreCase);
 

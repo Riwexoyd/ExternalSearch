@@ -9,7 +9,7 @@ namespace Riwexoyd.ExternalSearch.Games.Services
 {
     internal sealed class InteresExternalSearchProvider : ParseExternalSearchProvider
     {
-        private static readonly string[] Consoles = { "[XBOX]", "[PS4]", "[PS5]" };
+        private static readonly string[] Consoles = { "[XBOX]", "[PS4]", "[PS5]", "[Xbox One]", "[Switch]" };
 
         public override string SearchUri { get; } = "https://www.1c-interes.ru/search/?q={0}&ib=114&genre=3353622";
 
@@ -31,9 +31,7 @@ namespace Riwexoyd.ExternalSearch.Games.Services
 
                 string gameTitle = titleElement.TextContent.Trim();
 
-                string? upperTitle = gameTitle.ToUpper();
-
-                if (Consoles.Any(console => upperTitle.Contains(console)))
+                if (Consoles.Any(console => gameTitle.Contains(console, StringComparison.OrdinalIgnoreCase)))
                     continue;
 
                 string? link = titleElement.GetAttribute("href");

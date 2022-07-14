@@ -26,8 +26,10 @@ namespace Riwexoyd.ExternalSearch.Games.Tests.Services
             Assert.NotEmpty(games);
         }
 
-        [Fact]
-        public async Task SearchAsync_MustReturnOnlyPC()
+        [Theory]
+        [InlineData("Guardians of galaxy")]
+        [InlineData("Skyrim")]
+        public async Task SearchAsync_MustReturnOnlyPC(string title)
         {
             // Arrange
             InteresExternalSearchProvider externalSearchProvider = new InteresExternalSearchProvider();
@@ -35,11 +37,15 @@ namespace Riwexoyd.ExternalSearch.Games.Tests.Services
             // Act
             IEnumerable<GameSearchResult>? games = await externalSearchProvider.SearchAsync(new GameSearchOptions
             {
-                GameTitle = "Guardians of galaxy"
+                GameTitle = title
             }, System.Threading.CancellationToken.None);
 
             // Assert
-            Assert.DoesNotContain(games, result => result.GameTitle.Contains("Xbox") || result.GameTitle.Contains("PS4") || result.GameTitle.Contains("PS5"));
+            Assert.DoesNotContain(games, result => result.GameTitle.Contains("Xbox") || 
+                result.GameTitle.Contains("PS4") || 
+                result.GameTitle.Contains("PS5") || 
+                result.GameTitle.Contains("Xbox One") ||
+                result.GameTitle.Contains("Switch"));
         }
     }
 }
